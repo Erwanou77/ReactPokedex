@@ -1,0 +1,40 @@
+#listPoke {
+    > div {
+        &:first-child {
+            @apply flex justify-between items-center;
+        }
+        &:last-child {
+            @apply grid grid-cols-3 place-items-center gap-10;
+            > div {
+                @apply bg-blue-300 p-2 rounded-xl w-full;
+                > div {
+                    &:first-child {
+                        @apply flex justify-between items-center p-2;
+                        > h1 {
+                            @apply text-xl font-bold text-white;
+                        }
+                        > div {
+                            @apply flex gap-2;
+                            > img {
+                                @apply w-8 rounded-full;
+                            }
+                        }
+                        
+                    }
+                    &:nth-child(2) {
+                        @apply flex justify-center mb-5;
+                        > img {
+                            @apply w-64;
+                        }
+                    }
+                    &:nth-child(3) {
+                        @apply flex justify-between;
+                        > div {
+                            @apply flex gap-2 items-center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

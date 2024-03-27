@@ -1,0 +1,8 @@
+nav {
+    ul {
+        @apply flex gap-5 justify-center;
+        a {
+            @apply text-blue-300;
+        }
+    }
+}

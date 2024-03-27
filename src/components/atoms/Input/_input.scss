@@ -1,0 +1,11 @@
+.groupInput {
+    @apply flex flex-col w-64 text-left mb-5;
+    label {
+        @apply font-semibold text-lg;
+    }
+    input {
+        &[type='search'] {
+            @apply bg-green-300 py-4 pl-5 rounded-lg appearance-none focus:outline focus:outline-4 focus:outline-blue-300;
+        }
+    }
+}
