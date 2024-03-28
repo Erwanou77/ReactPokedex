@@ -3,7 +3,7 @@ import './_pokemons.scss';
 
 function Pokemons(props) {
     return (
-        <div>
+        <div key={"allpokemon"}>
             <ListPokemons />
         </div>
     );
