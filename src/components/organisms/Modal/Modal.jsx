@@ -2,8 +2,7 @@ import { Radar } from 'react-chartjs-2';
 import './_modal.scss';
 import { Chart, Filler, LineElement, PointElement, RadialLinearScale, Tooltip } from 'chart.js';
 
-function Modal({ closeModal, pokemon, language, allPokemons }) {
-    Chart.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip);
+function Modal({ closeModal, pokemon, language, allPokemons, pokemonTypes }) {
     let data = {
         labels: Object.keys(pokemon.stats),
         datasets: [{
@@ -12,9 +11,12 @@ function Modal({ closeModal, pokemon, language, allPokemons }) {
             data: Object.values(pokemon.stats)
         }] 
     }
+
+    Chart.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip);
+    Chart.defaults.color = "white";
     return (
         <div id="modal" onClick={() => closeModal(false)}>
-            <div>
+            <div className={pokemonTypes[pokemon.types[0].name]}>
                 <div>
                     <h1>{pokemon.name[language]}</h1>
                     <div>
@@ -39,28 +41,28 @@ function Modal({ closeModal, pokemon, language, allPokemons }) {
                     </ul>
                 </div>
                 <div>                    
-                    <Radar data={data}  />
+                    <Radar data={data}/>
                 </div>
                 <div>
                     <div>
-                    {pokemon.evolution !== null ? pokemon.evolution.pre !== null ? pokemon.evolution.pre.map((evolution) => {
+                    {pokemon.evolution !== null && pokemon.evolution.pre !== null && pokemon.evolution.pre.map((evolution) => {
                         return allPokemons.filter(poke => poke.pokedex_id == evolution.pokedex_id).map((evo, key) => (
                             <>
                                 <img src={evo.sprites.regular} alt="" key={key} width="60px" />
                             </>
                         ))
                     }
-                    ) : "" : ""}
+                    )}
                     </div>
                     <div>
-                    {pokemon.evolution !== null ? pokemon.evolution.next !== null ? pokemon.evolution.next.map((evolution) => {
+                    {pokemon.evolution !== null && pokemon.evolution.next !== null && pokemon.evolution.next.map((evolution) => {
                         return allPokemons.filter(poke => poke.pokedex_id == evolution.pokedex_id).map((evo, key) => (
                             <>
                                 <img src={evo.sprites.regular} alt="" key={key} width="60px" />
                             </>
                         ))
                     }
-                    ) : "" : ""}
+                    )}
                     </div>
                 </div> 
             </div>
