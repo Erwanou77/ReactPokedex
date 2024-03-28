@@ -1,0 +1,56 @@
+@mixin gridRow($rowStart, $colStart, $rowEnd, $colEnd) {
+    @apply row-start-#{$rowStart} col-start-#{$colStart} row-end-#{$rowEnd} col-end-#{$colEnd};
+}
+
+#modal {
+    @apply fixed bg-black bg-opacity-25 flex justify-center items-center w-full h-full top-0 left-0;
+    > div {
+        @apply bg-blue-300 w-[600px] rounded-xl p-4 grid grid-cols-2 gap-x-12 items-center;
+        > div {
+            &:first-child {
+                @apply flex justify-between items-center;
+                @include gridRow(1, 1, 2, 3);
+                > h1 {
+                    @apply text-xl font-bold text-white;
+                }
+                > div {
+                    @apply flex gap-2 items-center;
+                    > h4 {
+                        @apply text-lg font-semibold;
+                    }
+                    > img {
+                        @apply w-8 rounded-full;
+                    }
+                }                
+            }
+            &:nth-child(2) {
+                @apply flex justify-center mb-5;
+                @include gridRow(2, 1, 4, 2);
+                > img {
+                    @apply w-64;
+                }
+            }
+            &:nth-child(3) {
+                @apply my-5;
+                @include gridRow(4, 1, 5, 2);
+                ul {
+                    @apply ml-5;
+                    li {
+                        @apply text-lg text-white font-bold list-disc;
+                    }
+                    
+                }
+            }
+            &:nth-child(4) {
+                @include gridRow(2, 2, 5, 3);
+            }
+            &:nth-child(5) {
+                @apply flex justify-between;
+                @include gridRow(5, 1, 6, 3);
+                > div {
+                    @apply flex gap-2 items-center;
+                }
+            }
+        }
+    }
+}
