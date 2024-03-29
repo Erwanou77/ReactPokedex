@@ -4,14 +4,10 @@ import Input from '../../atoms/Input/Input';
 import Modal from '../Modal/Modal';
 import { GoHeart, GoHeartFill } from 'react-icons/go'
 
-function ListPokemons(props) {
-    const [allPokemons, setAllPokemons] = useState([]);
+function ListPokemons({allPokemons, search, gen, setLanguage, language}) {
     const [openModal, setOpenModal] = useState(false);
-    const [search, setSearch] = useState("");
-    const [gen, setGen] = useState(1);
-    const [language, setLanguage] = useState("fr");
     const [onePokemon, setOnePokemon] = useState({});
-    const [heart, setHeart] = useState({});
+    const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem('favorites')) || []);
 
     const pokemonTypes = {
         "Psy": "bg-yellow-300 bg-gradient-to-br from-yellow-300 to-red-400",
@@ -33,29 +29,28 @@ function ListPokemons(props) {
         "Acier": "bg-gray-800 bg-gradient-to-br from-gray-800 to-gray-900",
         "Ténèbres": "bg-black"
     };
-    
-    useEffect(() => {    
-        const fetchData = async () => {            
-            const res = await fetch(`https://tyradex.vercel.app/api/v1/gen/${gen}`);
-            const data = await res.json();
-            setAllPokemons(search ? data.filter(poke => poke.name[language].startsWith(search)) : data);
-        } 
-        fetchData();
-    }, [search, gen])
 
+    useEffect(() => {
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }, [favorites]);
+
+    const toggleFavorite = (item) => {
+        setFavorites(prevFavorites => prevFavorites.some(fav => fav.pokedex_id === item.pokedex_id) ? prevFavorites.filter(fav => fav.pokedex_id !== item.pokedex_id) : [...prevFavorites, item]);
+    };
     return (
         <div>
             <div id='listPoke'>
-                {console.log(allPokemons)}
                 <div>
-                    <Input label="Recherche" type="search" onChange={(e) => setSearch(e.target.value)} />
-                    <div>
-                        <select onChange={(e) => setGen(e.target.value)}>
-                            {Array.from({ length: 9 }, (_, i) => (
-                                <option key={i + 1}>{i + 1}</option>
-                            ))}
-                        </select>
-                    </div>
+                    <Input label="Recherche" type="search" onChange={(e) => search(e.target.value)} />
+                    {gen && (
+                        <div>
+                            <select onChange={(e) => gen(e.target.value)}>
+                                {Array.from({ length: 9 }, (_, i) => (
+                                    <option key={i + 1}>{i + 1}</option>
+                                ))}
+                            </select>
+                        </div>
+                    )}                    
                     <div>
                         <select onChange={(e) => setLanguage(e.target.value)}>
                             <option value="fr">fr</option>
@@ -66,41 +61,38 @@ function ListPokemons(props) {
                 </div>
                 <div>
                     {allPokemons.length > 0 ? allPokemons.map((element, i) => (                    
-                        <div key={i} onClick={() => setOpenModal(true) & setOnePokemon(element)} className={pokemonTypes[element.types[0].name]}>
+                        <div key={i} className={pokemonTypes[element.types[0].name]}>
                             <div>
                                 <h1>{element.name[language]}</h1>
                                 <div>
                                     <h4>{element.stats.hp}</h4>
                                     {element.types.map((type, key) => (
-                                        <>
-                                            <img src={type.image} alt="" key={key} />
-                                        </>
+                                        <img src={type.image} alt="" />
                                     ))}
                                 </div>
                             </div>
-                            <div>
+                            <div onClick={() => setOpenModal(true) & setOnePokemon(element)}>
                                 <img src={element.sprites.regular} alt="" />
                             </div>
+                            <div>
+                                <button onClick={() => toggleFavorite(element)}>
+                                    {favorites.some(fav => fav.pokedex_id === element.pokedex_id) ? <GoHeartFill /> : <GoHeart />}
+                                </button>
+                            </div> 
                             <div>
                                 <div>
                                 {element.evolution !== null && element.evolution.pre !== null && element.evolution.pre.map((evolution) => {
                                     return allPokemons.filter(pokemon => pokemon.pokedex_id == evolution.pokedex_id).map((evo, key) => (
-                                        <>
-                                            <img src={evo.sprites.regular} alt="" key={key} width="60px" />
-                                        </>
+                                        <img src={evo.sprites.regular} alt="" key={key} width="60px" />
                                     ))
-                                }
-                                )}
+                                })}
                                 </div>
                                 <div>
                                 {element.evolution !== null && element.evolution.next !== null && element.evolution.next.map((evolution) => {
                                     return allPokemons.filter(pokemon => pokemon.pokedex_id == evolution.pokedex_id).map((evo, key) => (
-                                        <>
-                                            <img src={evo.sprites.regular} alt="" key={key} width="60px" />
-                                        </>
+                                        <img src={evo.sprites.regular} alt="" key={key} width="60px" />
                                     ))
-                                }
-                                )}
+                                })}
                                 </div>
                             </div>                       
                         </div>

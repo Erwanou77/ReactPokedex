@@ -6,6 +6,7 @@ function Navbar(props) {
         <nav>
             <ul>
                 <li><Link to='/'>Accueil</Link></li>
+                <li><Link to='/favorites'>Mon pokedex</Link></li>
             </ul>
         </nav>
     );
