@@ -23,7 +23,6 @@ function Modal({ closeModal, pokemon, language, allPokemons }) {
             <div className={pokemon.types[0].name}>
                 <div>
                     <h1>#{pokemon.pokedex_id} {pokemon.name[language]}</h1>
-                    {console.log(ref)}
                     <div>
                         <h4>{pokemon.stats.hp}</h4>
                         {pokemon.types.map((type, key) => (

@@ -10,16 +10,21 @@ function Favorites() {
 
     useEffect(() => {
         const fetchData = async () => {
-            [1,2,3,4,5,6,7,8,9].map(async (gen)=>{
-                const res = await fetch(`https://tyradex.vercel.app/api/v1/gen/${gen}`);
-                const data = await res.json();
-                setPokemons((prev)=>[...prev,...data])
-            })
+            let fetchedData=[];
+            await Promise.all(
+                [1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (gen) => {
+                    const res = await fetch(`https://tyradex.vercel.app/api/v1/gen/${gen}`);
+                    const data = await res.json();
+                    fetchedData = fetchedData.concat(data);
+                })
+            );
+            return fetchedData;
         }
-        setPokemons([]);
-        fetchData();
+        fetchData()
+        .then((data) => {
+            setPokemons(data);
+        })
         setAllPokemons(SelectedTypes.length!=0 ? search ? (JSON.parse(localStorage.getItem('favorites')) || []).filter(poke => poke.name[language].toLowerCase().startsWith(search.toLowerCase())).filter((e)=>SelectedTypes.every(r=> e.types.map((i)=>i.name).includes(r))) : (JSON.parse(localStorage.getItem('favorites')) || []).filter((e)=>SelectedTypes.every(r=> e.types.map((i)=>i.name).includes(r))):search ? (JSON.parse(localStorage.getItem('favorites')) || []).filter(poke => poke.name[language].toLowerCase().startsWith(search.toLowerCase())) : (JSON.parse(localStorage.getItem('favorites')) || []));
-        console.log(allPokemons);
     }, [search,SelectedTypes]);
     
     return (

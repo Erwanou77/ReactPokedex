@@ -52,7 +52,7 @@ function ListPokemons({allPokemons, search, gen, setLanguage, language, selected
                                     {element.types.map((type, key) => {
                                     !Types.includes(type.name) && setTypes([...Types, type.name]);
                                     return(
-                                        <img src={type.image} alt="" />
+                                        <img key={key} src={type.image} alt="" />
                                     )})}
                                 </div>
                             </div>
