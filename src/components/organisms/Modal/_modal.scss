@@ -31,8 +31,13 @@
                 }
             }
             &:nth-child(3) {
+                @include gridRow(5, 1, 5, 3);
+                @apply flex items-center justify-start gap-4;
+            }
+            
+            &:nth-child(4) {
                 @apply my-5;
-                @include gridRow(4, 1, 5, 2);
+                @include gridRow(4, 1, 4, 2);
                 ul {
                     @apply ml-5;
                     li {
@@ -41,16 +46,19 @@
                     
                 }
             }
-            &:nth-child(4) {
+            &:nth-child(5) {
                 @include gridRow(2, 2, 5, 3);
             }
-            &:nth-child(5) {
+            &:nth-child(6) {
                 @apply flex justify-between;
-                @include gridRow(5, 1, 6, 3);
+                @include gridRow(6, 1, 6, 3);
                 > div {
                     @apply flex gap-2 items-center;
                 }
             }
         }
+    }
+    #fermer {
+        @apply h-auto w-fit block ;
     }
 }

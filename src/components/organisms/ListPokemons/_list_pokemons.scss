@@ -30,7 +30,7 @@
                             @apply w-64;
                         }
                     }
-                    &:nth-child(3) {
+                    &:nth-child(4) {
                         @apply flex justify-between;
                         > div {
                             @apply flex gap-2 items-center;
@@ -40,4 +40,61 @@
             }
         }
     }
+}
+.Plante {
+    @apply bg-green-600 bg-gradient-to-br from-green-600 to-green-900;
+}
+.Psy{
+    @apply bg-yellow-300 bg-gradient-to-br from-yellow-300 to-red-400;
+}
+.Vol{
+    @apply bg-blue-400 bg-gradient-to-br from-blue-400 to-indigo-600;
+}
+.Dragon{
+    @apply bg-red-600 bg-gradient-to-br from-red-600 to-yellow-300;
+}
+.Feu{
+    @apply bg-red-600 bg-gradient-to-br from-red-600 to-yellow-300;
+}
+.Électrik{
+    @apply bg-yellow-300 bg-gradient-to-br from-yellow-300 to-red-400;
+}
+.Glace{
+    @apply bg-blue-300 bg-gradient-to-br from-blue-300 to-blue-500;
+}
+.Normal{
+    @apply bg-gray-400 bg-gradient-to-br from-gray-400 to-gray-600;
+}
+.Roche{
+    @apply bg-gray-600 bg-gradient-to-br from-gray-600 to-gray-900;
+}
+.Eau{
+    @apply bg-blue-500 bg-gradient-to-br from-blue-500 to-blue-700;
+}
+.Insecte{
+    @apply bg-green-500 bg-gradient-to-br from-green-500 to-green-700;
+}
+.Fée{
+    @apply bg-pink-300 bg-gradient-to-br from-pink-300 to-pink-500;
+}
+.Plante{
+    @apply bg-green-600 bg-gradient-to-br from-green-600 to-green-900;
+}
+.Sol{
+    @apply bg-yellow-600 bg-gradient-to-br from-yellow-600 to-yellow-900;
+}
+.Poison{
+    @apply bg-purple-600 bg-gradient-to-br from-purple-600 to-purple-900;
+}
+.Combat{
+    @apply bg-red-900 bg-gradient-to-br from-red-900 to-red-600;
+}
+.Spectre{
+    @apply bg-indigo-800 bg-gradient-to-br from-indigo-800 to-indigo-900;
+}
+.Acier{
+    @apply bg-gray-800 bg-gradient-to-br from-gray-800 to-gray-900;
+}
+.Ténèbres{
+    @apply bg-black;
 }
